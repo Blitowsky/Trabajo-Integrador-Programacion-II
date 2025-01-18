@@ -54,6 +54,30 @@ public class Menu {
                     
                     break;
                     
+                    
+                case 3:
+                    
+                    System.out.println("Ingrese el id de la colmena a modificar");
+                    id = scanner.nextInt();
+                    
+                    Colmena puntero = inventario.devolverColmena(id);
+                    
+                    System.out.println("La colmena posee abejas?");
+                    abejas = scanner.nextBoolean();
+                    puntero.setAbejas(abejas);
+                    
+                    System.out.println("Ingrese el nivel de miel de la colmena (0: sin miel / 10: completamente llena)");
+                    miel = scanner.nextInt();
+                    puntero.setCantMiel(miel);
+                    
+                    System.out.println("Ingrese la cantidad de marcos de la colmena");
+                    marcos = scanner.nextInt();
+                    puntero.setCantMarcos(marcos);
+                    
+                    System.out.println("Ingrese el estado de la colmena");
+                    estado = scanner.next();
+                    puntero.setEstadoColmena(estado);
+                    
                 case -1:
                     
                     inventario.mostrarListaColmenas();

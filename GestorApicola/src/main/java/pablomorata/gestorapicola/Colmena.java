@@ -27,6 +27,15 @@ public class Colmena{
         cantColmenas ++;
         
     }
+    public Colmena(boolean abejas, int cantMiel, int cantMarcos, String estadoColmena){
+        
+        this.abejas = abejas;
+        this.cantMarcos = cantMarcos;
+        this.cantMiel = cantMiel;
+        this.estadoColmena = estadoColmena;
+        cantColmenas ++;
+        
+    }
 
     
     public int getid(){
@@ -52,6 +61,22 @@ public class Colmena{
 
     public int getCantColmenas() {
         return cantColmenas;
+    }
+
+    public void setAbejas(boolean abejas) {
+        this.abejas = abejas;
+    }
+
+    public void setCantMiel(int cantMiel) {
+        this.cantMiel = cantMiel;
+    }
+
+    public void setCantMarcos(int cantMarcos) {
+        this.cantMarcos = cantMarcos;
+    }
+
+    public void setEstadoColmena(String estadoColmena) {
+        this.estadoColmena = estadoColmena;
     }
 
     

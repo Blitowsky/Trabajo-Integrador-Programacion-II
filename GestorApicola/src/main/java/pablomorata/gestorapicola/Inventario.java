@@ -12,93 +12,93 @@ import java.util.Iterator;
  * @author blitowsky
  */
 public class Inventario {
-    
+
     private int cantColmenas = 0;
-    
+
     ArrayList<Colmena> colmenas;
+    ArrayList<Object> herramientas;
+    ArrayList<Object> consumibles;
     
-    public Inventario(){
-        
-        colmenas = new ArrayList<Colmena>();
-        
-    }   
-    
-    public Colmena devolverColmena(int id){
-        
+    public Inventario() {
+
+        colmenas = new ArrayList<>();
+        herramientas = new ArrayList<>();
+        consumibles = new ArrayList<>();
+
+
+    }
+
+    public Colmena devolverColmena(int id) {
+
         for (Colmena puntero : colmenas) {
-            
-            if (puntero.getid() == id){
-                
+
+            if (puntero.getid() == id) {
+
                 return puntero;
-                
+
             }
-            
+
         }
         return null;
-        
+
+    }
+
+    public void sumarColmena(Colmena idColmena) {
+
+        colmenas.add(idColmena);
+        cantColmenas++;
+
+    }
+
+    public void restarColmena(Colmena idColmena) {
+
+        colmenas.add(idColmena);
+        cantColmenas--;
+
     }
     
-    public void sumarColmena(Colmena idColmena){
-        
-        colmenas.add(idColmena);
-        cantColmenas ++;
-        
-    }
-    public void restarColmena(Colmena idColmena){
-        
-        colmenas.add(idColmena);
-        cantColmenas --;
-        
-    }
     
-    public void mostrarListaColmenas(){
-        
-        int contador = 0;
-        
+    public void mostrarListaColmenas() {
+
         for (Colmena puntero : colmenas) {
-            
+
             System.out.println("\n Colmena número: " + puntero.getid() + ":");
             System.out.println("Posee abejas: " + puntero.isAbejas());
             System.out.println("El nivel de miel es: " + puntero.getCantMiel());
             System.out.println("Posee " + puntero.getCantMarcos() + " marcos");
             System.out.println("El estado de la colmena es " + puntero.getEstadoColmena() + "\n");
-            
-            
+
         }
-        
+
     }
-    
-    public void eliminarColmena(int id){
-        
-        
+
+    public void eliminarColmena(int id) {
+
         Iterator iterator = colmenas.iterator();
-        
-        while(iterator.hasNext()){
-            
-            if(iterator.next() == devolverColmena(id)){
-                
+
+        while (iterator.hasNext()) {
+
+            if (iterator.next() == devolverColmena(id)) {
+
                 iterator.remove();
-                
+
             }
-            
+
         }
-        
+
     }
-    
-    
-    public void setcantColmenas(int cantColmenas){
-        
+
+
+    public void setcantColmenas(int cantColmenas) {
+
         this.cantColmenas = cantColmenas;
-        
+
     }
-    
-    public int getcantColmenas(){
-        
+
+    public int getcantColmenas() {
+
         return cantColmenas;
-        
+
     }
-    
-   
-    
-    
+
 }
