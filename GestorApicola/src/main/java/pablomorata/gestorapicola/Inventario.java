@@ -18,13 +18,26 @@ public class Inventario {
     ArrayList<Colmena> colmenas;
     ArrayList<Object> herramientas;
     ArrayList<Object> consumibles;
-    
+
     public Inventario() {
 
         colmenas = new ArrayList<>();
         herramientas = new ArrayList<>();
         consumibles = new ArrayList<>();
 
+    }
+
+    public boolean idUnico(int id) {
+
+        for (Colmena puntero : colmenas) {
+
+            if (puntero.getid() == id) {
+
+                return false;
+
+            }
+        }
+        return true;
 
     }
 
@@ -56,8 +69,7 @@ public class Inventario {
         cantColmenas--;
 
     }
-    
-    
+
     public void mostrarListaColmenas() {
 
         for (Colmena puntero : colmenas) {
@@ -87,7 +99,6 @@ public class Inventario {
         }
 
     }
-
 
     public void setcantColmenas(int cantColmenas) {
 

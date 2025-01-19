@@ -14,6 +14,7 @@ public class Menu {
     
     Scanner scanner = new Scanner(System.in).useDelimiter("\n");
     Inventario inventario = new Inventario();
+    NewJFrame frame = new NewJFrame();
     
     int opcion;
     boolean salir = false;
@@ -22,14 +23,24 @@ public class Menu {
         
         do {
             
-            System.out.println("Ingrese la opción del menú a elegir \n 1: agregar \n -1: mostrar ");
+            System.out.println("Ingrese la opción del menú a elegir \n 1: Agregar \n 2: Eliminar \n 3: Modificar \n -1: Mostrar ");
             opcion = scanner.nextInt();
             
             switch (opcion) {
                 case 1:
                     
+                    
                     System.out.println("Ingrese la id de la colmena");
                     int id = scanner.nextInt();
+                   
+                    while (inventario.idUnico(id) == false) {    
+                        
+                        System.out.println("El id ingresado ya existe, ingrese otro");
+                        id = scanner.nextInt();
+                        
+                    }
+                    
+                    
                     System.out.println("La colmena posee abejas?");
                     boolean abejas = scanner.nextBoolean();
                     System.out.println("Ingrese el nivel de miel de la colmena (0: sin miel / 10: completamente llena)");
@@ -51,6 +62,7 @@ public class Menu {
                     id = scanner.nextInt();
                     
                     inventario.eliminarColmena(id);
+                    
                     
                     break;
                     
