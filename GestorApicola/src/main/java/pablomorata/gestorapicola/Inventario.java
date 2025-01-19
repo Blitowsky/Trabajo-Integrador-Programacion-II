@@ -10,7 +10,9 @@ import java.util.Iterator;
 /**
  *
  * @author blitowsky
+ * 
  */
+
 public class Inventario {
 
     private int cantColmenas = 0;
@@ -39,6 +41,14 @@ public class Inventario {
         }
         return true;
 
+    }
+    
+    public boolean entreParametros(int parametro, int desde, int hasta){
+        
+        //El return está pensado para que sea usado en un while(false)
+        
+        return !(parametro <= hasta && parametro >= desde);
+        
     }
 
     public Colmena devolverColmena(int id) {

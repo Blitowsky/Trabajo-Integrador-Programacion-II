@@ -4,45 +4,51 @@
  */
 package pablomorata.gestorapicola;
 
+import java.util.Scanner;
+
 /**
  *
  * @author blitowsky
  */
-public class Colmena{
-    
+public class Colmena {
+
     int id;
     boolean abejas;
     int cantMiel;
     int cantMarcos;
-    String estadoColmena;  
+    String estadoColmena;
     int cantColmenas = 0;
-    
-    public Colmena(int id, boolean abejas, int cantMiel, int cantMarcos, String estadoColmena){
-        
+
+    Scanner scanner = new Scanner(System.in).useDelimiter("\n");
+
+    public Colmena(int id, boolean abejas, int cantMiel, int cantMarcos, String estadoColmena) {
+
         this.id = id;
         this.abejas = abejas;
         this.cantMarcos = cantMarcos;
+
         this.cantMiel = cantMiel;
         this.estadoColmena = estadoColmena;
-        cantColmenas ++;
-        
+        cantColmenas++;
+
     }
-    public Colmena(boolean abejas, int cantMiel, int cantMarcos, String estadoColmena){
-        
+
+    public Colmena(boolean abejas, int cantMiel, int cantMarcos, String estadoColmena) {
+
         this.abejas = abejas;
         this.cantMarcos = cantMarcos;
         this.cantMiel = cantMiel;
         this.estadoColmena = estadoColmena;
-        cantColmenas ++;
-        
+        cantColmenas++;
+
     }
 
-    
-    public int getid(){
-        
+    public int getid() {
+
         return id;
-        
+
     }
+
     public boolean isAbejas() {
         return abejas;
     }
@@ -79,6 +85,4 @@ public class Colmena{
         this.estadoColmena = estadoColmena;
     }
 
-    
-    
 }
