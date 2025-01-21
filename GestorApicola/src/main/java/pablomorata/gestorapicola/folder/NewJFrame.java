@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package pablomorata.gestorapicola;
+package pablomorata.gestorapicola.folder;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -10,6 +10,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import javax.swing.table.DefaultTableModel;
+import pablomorata.gestorapicola.Database;
 
 /**
  *
@@ -90,6 +91,18 @@ public class NewJFrame extends javax.swing.JFrame {
 
         }
     }
+    
+    public class TestDatabase {
+    public static void main(String[] args) {
+        Connection conn = Database.connect();
+        if (conn != null) {
+            System.out.println("Conexión exitosa.");
+            Database.disconnect();
+        } else {
+            System.out.println("Conexión fallida.");
+        }
+    }
+}
 
     /**
      * This method is called from within the constructor to initialize the form.

@@ -2,18 +2,18 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package pablomorata.gestorapicola;
+package pablomorata.gestorapicola.folder;
 
 /**
  *
  * @author blitowsky
  */
-public abstract class Objeto {
+public abstract class Persona {
     
-    String estado;
+    String nombre;
     String utilidad;
-    String prioridad;
-    String area;
-    double precio;
+    boolean disponibilidad;
+    boolean contratado;
+    
     
 }

@@ -4,6 +4,10 @@
  */
 package pablomorata.gestorapicola;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import pablomorata.gestorapicola.folder.NewJFrame;
 import java.util.Scanner;
 
 /**
@@ -32,37 +36,51 @@ public class Menu {
                     System.out.println("Ingrese la id de la colmena");
                     int id = scanner.nextInt();
 
-                    
+                    id = inventario.idUnico(id);
+
                     System.out.println("La colmena posee abejas?");
-                    boolean abejas = scanner.nextBoolean();
-                    
-                    
+                    int hayAbejas = scanner.nextInt();
+
+                    hayAbejas = inventario.entreParametros(hayAbejas, 1, 2);
+
+                    boolean abejas = false;
+
                     System.out.println("Ingrese el nivel de miel de la colmena (0: sin miel / 10: completamente llena)");
                     int miel = scanner.nextInt();
-                    
-                    while((inventario.entreParametros(miel, 0, 10))){
-                        
-                        System.out.println("El nivel de miel debe ser entre 0 y 10");
-                        miel = scanner.nextInt();
-                        
-                    }
-  
-                    
+
+                    miel = inventario.entreParametros(miel, 0, 10);
+
                     System.out.println("Ingrese la cantidad de marcos de la colmena");
+
                     int marcos = scanner.nextInt();
-                    
-                     while((inventario.entreParametros(marcos, 0, 10))){
-                        
-                        System.out.println("La cantidad de marcos debe ser entre 0 y 10");
-                        marcos = scanner.nextInt();
-                        
-                    }
-                
+
+                    marcos = inventario.entreParametros(marcos, 0, 10);
+
                     System.out.println("Ingrese el estado de la colmena");
                     String estado = scanner.next();
 
+                    if (hayAbejas == 1) {
+                        abejas = true;
+                    }
+
                     Colmena colmena = new Colmena(id, abejas, miel, marcos, estado);
+
                     inventario.sumarColmena(colmena);
+
+                    String sql = "INSERT INTO Colmena (ID, Abejas, Marcos, Miel, Estado) VALUES (?, ?, ?, ?, ?)";
+
+                    try (Connection conn = Database.connect(); PreparedStatement pstmt = conn.prepareStatement(sql)) {
+                        pstmt.setInt(1, id);
+                        pstmt.setBoolean(2, abejas);
+                        pstmt.setInt(3, miel);
+                        pstmt.setInt(4, marcos);
+                        pstmt.setString(5, estado);
+                        pstmt.executeUpdate();
+                        System.out.println("Colmena insertada correctamente.");
+                    } catch (SQLException e) {
+                        System.err.println("Error al insertar colmena: " + e.getMessage());
+                    }
+                    Database.disconnect();
 
                     break;
 
@@ -97,6 +115,8 @@ public class Menu {
                     System.out.println("Ingrese el estado de la colmena");
                     estado = scanner.next();
                     puntero.setEstadoColmena(estado);
+
+                case 4:
 
                 case -1:
 
