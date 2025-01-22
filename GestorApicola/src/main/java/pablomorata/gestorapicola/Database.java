@@ -6,7 +6,9 @@ package pablomorata.gestorapicola;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.sql.Statement;
 
 /**
  *
@@ -51,6 +53,29 @@ public class Database {
             
             System.err.println("Error al cerrar la conexión " + e.getMessage());
         }
+        
+    }
+    
+    public static void reasignarId(Connection conexion, int idAEliminar) throws SQLException{
+        
+        String eliminarSql = "DELETE FROM tu_tabla WHERE id = ?";
+    String reasignarSql = """
+        WITH CTE AS (
+            SELECT ROW_NUMBER() OVER (ORDER BY id) AS nueva_id, id
+            FROM tu_tabla
+        )
+        UPDATE tu_tabla
+        SET id = (SELECT nueva_id FROM CTE WHERE CTE.id = tu_tabla.id)
+    """;
+
+    try (PreparedStatement eliminarStmt = conexion.prepareStatement(eliminarSql);
+         Statement reasignarStmt = conexion.createStatement()) {
+        eliminarStmt.setInt(1, idAEliminar);
+        eliminarStmt.executeUpdate();
+        reasignarStmt.executeUpdate(reasignarSql);
+    }
+        
+        
         
     }
     

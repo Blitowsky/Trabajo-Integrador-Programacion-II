@@ -4,11 +4,10 @@
  */
 package pablomorata.gestorapicola;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
+
 import pablomorata.gestorapicola.folder.NewJFrame;
 import java.util.Scanner;
+import pablomorata.gestorapicola.DAO.ColmenaDAO;
 
 /**
  *
@@ -64,23 +63,11 @@ public class Menu {
                     }
 
                     Colmena colmena = new Colmena(id, abejas, miel, marcos, estado);
-
+                    ColmenaDAO.agregarColmena(id, abejas, miel, marcos, estado);
+                    
                     inventario.sumarColmena(colmena);
 
-                    String sql = "INSERT INTO Colmena (ID, Abejas, Marcos, Miel, Estado) VALUES (?, ?, ?, ?, ?)";
-
-                    try (Connection conn = Database.connect(); PreparedStatement pstmt = conn.prepareStatement(sql)) {
-                        pstmt.setInt(1, id);
-                        pstmt.setBoolean(2, abejas);
-                        pstmt.setInt(3, miel);
-                        pstmt.setInt(4, marcos);
-                        pstmt.setString(5, estado);
-                        pstmt.executeUpdate();
-                        System.out.println("Colmena insertada correctamente.");
-                    } catch (SQLException e) {
-                        System.err.println("Error al insertar colmena: " + e.getMessage());
-                    }
-                    Database.disconnect();
+                    
 
                     break;
 
@@ -88,8 +75,11 @@ public class Menu {
 
                     System.out.println("Ingrese el id de la colmena a eliminar");
                     id = scanner.nextInt();
-
+                    ColmenaDAO.eliminarColmena(id);
+                    ColmenaDAO.reasignar(id);
+                    
                     inventario.eliminarColmena(id);
+                    
 
                     break;
 
@@ -115,12 +105,14 @@ public class Menu {
                     System.out.println("Ingrese el estado de la colmena");
                     estado = scanner.next();
                     puntero.setEstadoColmena(estado);
+                    
+                    break;
 
-                case 4:
 
                 case -1:
 
-                    inventario.mostrarListaColmenas();
+                    ColmenaDAO.traerColmenas();
+
                     break;
 
                 case 0:

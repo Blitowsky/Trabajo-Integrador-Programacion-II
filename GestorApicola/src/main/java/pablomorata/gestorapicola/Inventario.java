@@ -12,13 +12,10 @@
  */
 package pablomorata.gestorapicola;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Scanner;
+import pablomorata.gestorapicola.DAO.ColmenaDAO;
 
 /**
  *
@@ -99,35 +96,7 @@ public class Inventario {
 
     }
 
-    public void mostrarListaColmenas() {
-
-        String sql = "SELECT * FROM Colmena";
-
-        try (Connection conn = Database.connect(); Statement stmt = conn.createStatement(); ResultSet rs = stmt.executeQuery(sql)) {
-            while (rs.next()) {
-                System.out.println("ID: " + rs.getInt("ID"));
-                System.out.println("Posee abejas? : " + rs.getBoolean("Abejas"));
-                System.out.println("Nivel de miel: " + rs.getInt("Marcos"));
-                System.out.println("Cantidad de marcos: " + rs.getInt("Miel"));
-                System.out.println("Estado: " + rs.getString("Estado"));
-                System.out.println("-------------------");
-            }
-        } catch (SQLException e) {
-            System.err.println("Error al listar colmenas: " + e.getMessage());
-        }
-        Database.disconnect();
-
-        for (Colmena puntero : colmenas) {
-
-            System.out.println("\n Colmena número: " + puntero.getid() + ":");
-            System.out.println("Posee abejas: " + puntero.isAbejas());
-            System.out.println("El nivel de miel es: " + puntero.getCantMiel());
-            System.out.println("Posee " + puntero.getCantMarcos() + " marcos");
-            System.out.println("El estado de la colmena es " + puntero.getEstadoColmena() + "\n");
-
-        }
-
-    }
+    
 
     public void eliminarColmena(int id) {
 
