@@ -1,14 +1,10 @@
 pablomorata/gestorapicola/folder/Objeto.class
-pablomorata/gestorapicola/folder/NewJFrame.class
+pablomorata/gestorapicola/Menu.class
 pablomorata/gestorapicola/Inventario.class
 pablomorata/gestorapicola/TestDatabase.class
 pablomorata/gestorapicola/Database.class
+pablomorata/gestorapicola/DAO/ColmenaDAO.class
 pablomorata/gestorapicola/folder/Proveedores.class
 pablomorata/gestorapicola/Colmena.class
-pablomorata/gestorapicola/folder/NewJFrame$TestDatabase.class
-pablomorata/gestorapicola/folder/Persona.class
-pablomorata/gestorapicola/Menu.class
-pablomorata/gestorapicola/DAO/ColmenaDAO.class
 pablomorata/gestorapicola/GestorApicola.class
-pablomorata/gestorapicola/folder/NewJFrame$2.class
-pablomorata/gestorapicola/folder/NewJFrame$1.class
+pablomorata/gestorapicola/folder/Persona.class

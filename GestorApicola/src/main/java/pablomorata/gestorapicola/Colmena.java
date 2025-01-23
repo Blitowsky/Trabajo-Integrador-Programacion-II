@@ -4,13 +4,14 @@
  */
 package pablomorata.gestorapicola;
 
-import java.util.Scanner;
+import pablomorata.gestorapicola.Abstractas.Entidad;
 
 /**
  *
  * @author blitowsky
+ * 
  */
-public class Colmena {
+public class Colmena extends Entidad{
 
     int id;
     boolean abejas;
@@ -19,22 +20,15 @@ public class Colmena {
     String estadoColmena;
     int cantColmenas = 0;
 
-    Scanner scanner = new Scanner(System.in).useDelimiter("\n");
-
-    public Colmena(int id, boolean abejas, int cantMiel, int cantMarcos, String estadoColmena) {
-
-        this.id = id;
-        this.abejas = abejas;
-        this.cantMarcos = cantMarcos;
-
-        this.cantMiel = cantMiel;
-        this.estadoColmena = estadoColmena;
-        cantColmenas++;
-
+    public Colmena(){
+        
+        super("colmena");
+        
     }
 
+  
     public Colmena(boolean abejas, int cantMiel, int cantMarcos, String estadoColmena) {
-
+        super("colmena");
         this.abejas = abejas;
         this.cantMarcos = cantMarcos;
         this.cantMiel = cantMiel;
@@ -83,6 +77,8 @@ public class Colmena {
 
     public void setEstadoColmena(String estadoColmena) {
         this.estadoColmena = estadoColmena;
+        
     }
+
 
 }
