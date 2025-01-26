@@ -14,7 +14,6 @@ package pablomorata.gestorapicola;
 
 import java.util.Scanner;
 import java.util.ArrayList;
-import pablomorata.gestorapicola.DAO.ColmenaDAO;
 
 /**
  *
@@ -24,21 +23,31 @@ import pablomorata.gestorapicola.DAO.ColmenaDAO;
 public class Inventario {
 
     Scanner scanner = new Scanner(System.in).useDelimiter("\n");
-    
-    public Inventario(){
-        
-        
-        
+
+    ArrayList<Object> consumibles;
+
+    public Inventario() {
+        consumibles = new ArrayList<>();
     }
-
-
 
     public int entreParametros(int parametro, int desde, int hasta) {
 
         //El return está pensado para que sea usado en un while(false)
         while (!(parametro <= hasta && parametro >= desde)) {
 
-            System.out.println("Ingrese un número desde " + desde + "hasta " + hasta);
+            System.out.println("Ingrese un número desde " + desde + " hasta " + hasta);
+            parametro = scanner.nextInt();
+
+        }
+        return parametro;
+
+    }
+
+    public int intMayorA(int parametro, int mayorA) {
+
+        while (parametro < mayorA) {
+
+            System.out.println("Ingrese un número mayor a " + mayorA);
             parametro = scanner.nextInt();
 
         }
@@ -46,5 +55,15 @@ public class Inventario {
 
     }
     
+    public double doubleMayorA(double parametro, int mayorA) {
 
+        while (parametro < mayorA) {
+
+            System.out.println("Ingrese un número mayor a " + mayorA);
+            parametro = scanner.nextDouble();
+
+        }
+        return parametro;
+
+    }
 }

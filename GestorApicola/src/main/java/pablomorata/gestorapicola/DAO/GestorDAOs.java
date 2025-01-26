@@ -16,6 +16,7 @@ import pablomorata.gestorapicola.Database;
  * @author blitowsky
  */
 public class GestorDAOs {
+    
     public static void reasignarId(String nombreEntidad) {
         String selectQuery = "SELECT id FROM " + nombreEntidad + " ORDER BY id ASC";
         String updateQuery = "UPDATE " + nombreEntidad + " SET id = ? WHERE id = ?";
@@ -43,5 +44,12 @@ public class GestorDAOs {
 
         }
         Database.disconnect();
+    }
+    
+    public static void hasNext(int id){
+        
+        
+        
+        
     }
 }

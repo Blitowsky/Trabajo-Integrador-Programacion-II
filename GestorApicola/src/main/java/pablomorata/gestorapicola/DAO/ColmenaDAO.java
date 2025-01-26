@@ -8,7 +8,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
+import pablomorata.gestorapicola.Entidades.Colmena;
 import pablomorata.gestorapicola.Database;
 
 /**
@@ -17,23 +17,33 @@ import pablomorata.gestorapicola.Database;
  */
 public class ColmenaDAO {
 
-    public static void traerColmenas() {
+    public static Colmena traerColmenas(int id) {
 
-        String sql = "SELECT * FROM Colmena";
+        String sql = "SELECT * FROM Colmena WHERE id = ?";
 
-        try (Connection conn = Database.connect(); Statement stmt = conn.createStatement(); ResultSet rs = stmt.executeQuery(sql)) {
-            while (rs.next()) {
-                System.out.println("id: " + rs.getInt("id"));
-                System.out.println(rs.getBoolean("Abejas") + " posee abejas");
-                System.out.println("Nivel de miel: " + rs.getInt("Marcos"));
-                System.out.println("Cantidad de marcos: " + rs.getInt("Miel"));
-                System.out.println("Estado: " + rs.getString("Estado"));
-                System.out.println("-------------------");
+        try (Connection conn = Database.connect(); PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            pstmt.setInt(1, id); // Asignar el valor del parámetro
+
+            try (ResultSet rs = pstmt.executeQuery()) {
+                if (rs.next()) { // Mover el cursor a la primera fila
+                    int colmenaId = rs.getInt("id");
+                    boolean abejas = rs.getBoolean("Abejas");
+                    int miel = rs.getInt("Miel");
+                    int marcos = rs.getInt("Marcos");
+                    String estado = rs.getString("Estado");
+
+                    // Crear y devolver el objeto Colmena
+                    return new Colmena(colmenaId, abejas, miel, marcos, estado);
+                } else {
+                    return null;
+                }
             }
+
         } catch (SQLException e) {
-            System.err.println("Error al listar colmenas: " + e.getMessage());
+            System.err.println("Error al retornar el objeto colmena colmenas: " + e.getMessage());
         }
-        Database.disconnect();
+        return null;
 
     }
 
@@ -45,13 +55,12 @@ public class ColmenaDAO {
             pstmt.setBoolean(1, abejas);
             pstmt.setInt(2, miel);
             pstmt.setInt(3, marcos);
-            pstmt.setString(4, estado);
+            pstmt.setString(4, estado.toLowerCase());
             pstmt.executeUpdate();
             System.out.println("Colmena insertada correctamente.");
         } catch (SQLException e) {
             System.err.println("Error al insertar colmena: " + e.getMessage());
         }
-        Database.disconnect();
 
     }
 
@@ -60,7 +69,7 @@ public class ColmenaDAO {
         String eliminarSql = "DELETE FROM Colmena WHERE id = ?";
 
         try (Connection conn = Database.connect(); PreparedStatement eliminarStmt = conn.prepareStatement(eliminarSql)) {
-
+            
             eliminarStmt.setInt(1, id);
             eliminarStmt.executeUpdate();
 
@@ -68,11 +77,8 @@ public class ColmenaDAO {
 
             System.err.println("Error al eliminar colmena: " + e.getMessage());
 
-        }
-        Database.disconnect();
+        }   
     }
-
-    
 
     public static void modificarColmena(int id, String columna, String nuevoValor) {
 
@@ -93,23 +99,28 @@ public class ColmenaDAO {
                     pstmt.setInt(1, nuevoValorInt);
                 }
 
-                case "estado" -> pstmt.setString(1, nuevoValor);
-                
-                default -> throw new IllegalArgumentException("Columna no válida" + columna);
+                case "estado" ->
+                    pstmt.setString(1, nuevoValor);
+
+                default ->
+                    throw new IllegalArgumentException("Columna no válida" + columna);
 
             }
+            
             pstmt.setInt(2, id);
+
             
             pstmt.executeUpdate();
             System.out.println("Colmena actualizada correctamente");
 
+            
         } catch (SQLException e) {
 
+            
             System.err.println("Error al modificar el atributo " + e.getMessage());
             e.printStackTrace();
 
+            
         }
-
     }
-
 }

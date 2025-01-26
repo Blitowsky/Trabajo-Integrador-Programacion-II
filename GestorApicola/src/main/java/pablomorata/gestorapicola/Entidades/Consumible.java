@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package pablomorata.gestorapicola;
+package pablomorata.gestorapicola.Entidades;
 
 import pablomorata.gestorapicola.Abstractas.Entidad;
 
@@ -10,20 +10,35 @@ import pablomorata.gestorapicola.Abstractas.Entidad;
  *
  * @author blitowsky
  */
-public class Productos extends Entidad {
+public class Consumible extends Entidad{
     
+    private int id;
+    private String nombre;
+    private int cantidad;
+    private double precio;
     
-    String nombre;
-    int cantidad;
-    double precio;
-    
-    public Productos(String nombre, int cantidad, double precio){
+    public Consumible(){
         
-        super("producto");
+        super("consumible");
+        
+    }
+   
+    
+    public Consumible(int id, String nombre, int cantidad, double precio){
+        
+        super("consumible");
+        this.id = id;
         this.nombre = nombre;
         this.cantidad = cantidad;
         this.precio = precio;
-        
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getNombre() {
@@ -49,7 +64,5 @@ public class Productos extends Entidad {
     public void setPrecio(double precio) {
         this.precio = precio;
     }
-    
-    
     
 }

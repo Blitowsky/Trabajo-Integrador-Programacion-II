@@ -14,7 +14,7 @@ public class GestorApicola {
         
         Menu menu = new Menu();
         
-        menu.selectorOpciones();
+        menu.elegirAcciones();
         
     }
 }
