@@ -18,9 +18,9 @@ import pablomorata.gestorapicola.Entidades.Producto;
  */
 public class ProductoDAO {
     
-    public static void registrarProducto(String nombre, int cantidad, double precio) {
+    public void registrarProducto(String nombre, int cantidad, double precio, int peso, int prioridad, String utilidad) {
 
-        String sql = "INSERT INTO Producto (nombre, cantidad, precio) VALUES (?, ?, ?)";
+        String sql = "INSERT INTO Producto (nombre, cantidad, precio, peso, utilidad, prioridad) VALUES (?, ?, ?, ?, ?, ?)";
 
         try (Connection conn = Database.connect(); 
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
@@ -28,6 +28,9 @@ public class ProductoDAO {
             pstmt.setString(1, nombre);
             pstmt.setInt(2, cantidad);
             pstmt.setDouble(3, precio);
+            pstmt.setInt(4, peso);
+            pstmt.setInt(5, prioridad);
+            pstmt.setString(6, utilidad);
             pstmt.executeUpdate();
             System.out.println("Producto registrado correctamente.");
             
@@ -38,7 +41,7 @@ public class ProductoDAO {
 
     }
     
-    public static void agregarAInventario(String nombre, int cantidad){
+    public void agregarAInventario(String nombre, int cantidad){
         
         String query = "UPDATE Producto SET cantidad =  cantidad + ? WHERE nombre = '?'";
         
@@ -57,7 +60,7 @@ public class ProductoDAO {
         }
         
     }
-     public static void eliminarDeInventario(String nombre, int cantidad){
+     public void eliminarDeInventario(String nombre, int cantidad){
         
         String query = "UPDATE Producto SET cantidad =  cantidad - ? WHERE nombre = '?'";
         
@@ -77,7 +80,7 @@ public class ProductoDAO {
         
     }
     
-    public static Producto traerProductos(int id) {
+    public Producto traerProductos(int id) {
 
        String sql = "SELECT * FROM Producto WHERE id = ?";
 
@@ -94,8 +97,12 @@ public class ProductoDAO {
                     String nombre = rs.getString("nombre");
                     int cantidad = rs.getInt("cantidad");
                     double precio = rs.getDouble("precio");
+                    int peso = rs.getInt("peso");
+                    int prioridad = rs.getInt("prioridad");
+                    String utilidad = rs.getString("utilidad");
 
-                    return new Producto(productoId, nombre, cantidad, precio);
+
+                    return new Producto(productoId, nombre, cantidad, precio, peso, prioridad,utilidad);
                     
                 }
             }
@@ -107,8 +114,40 @@ public class ProductoDAO {
         return null;        
 
     }
+    public void modificarProducto(int id, String columnaModificar, String nuevoValor){
+        
+        String query = "UPDATE Producto SET " + columnaModificar + " = ? WHERE id = ? ";
+        
+        try(Connection conn = Database.connect(); PreparedStatement pstmt = conn.prepareStatement(query)){
+            
+            switch (columnaModificar.toLowerCase()) {
+                case "nombre", "utilidad" -> {
+                    
+                    pstmt.setString(1, nuevoValor);
+                    
+                }
+                case "cantidad", "prioridad", "peso" -> {
+                    
+                    pstmt.setInt(1,Integer.parseInt(nuevoValor));
+                    
+                    
+                }
+                case "precio" -> {
+                    
+                    pstmt.setDouble(1, Double.parseDouble(nuevoValor));
+                    
+                }
+            }
+            
+        } catch(SQLException e){
+            
+            System.out.println("Fallo al modificar producto " + e.getMessage());
+            
+        }
+        
+    }
     
-    public static void eliminarProducto(int id){
+    public void eliminarProducto(int id){
         
         String query = "DELETE FROM Producto WHERE id = ?";
         
@@ -123,6 +162,13 @@ public class ProductoDAO {
             
             System.err.println("Error al eliminar producto" + e.getMessage());
         }
+        
+    }
+    
+    public void venderProducto(String nombre, int cantidad){
+        
+        eliminarDeInventario(nombre,cantidad);
+        
         
     }
 }

@@ -4,14 +4,41 @@
  */
 package pablomorata.gestorapicola.Entidades;
 
-import pablomorata.gestorapicola.Abstractas.Persona;
+import java.util.Date;
+import java.util.Scanner;
+import pablomorata.gestorapicola.DAO.ProductoDAO;
 
 /**
  *
  * @author blitowsky
+ * 
  */
-public class Cliente extends Persona{
+
+
+public class Cliente extends Usuario{
     
+    static Scanner scanner = new Scanner(System.in).useDelimiter("\n");
+    
+    ProductoDAO productoDAO;
+    
+    public Cliente(){
+        
+    }
+    
+    public Cliente(String nombre, String ubicacion, int id, Date antiguedad, int prioridad){
+        
+        super(nombre, ubicacion, id, antiguedad, prioridad);
+        productoDAO = new ProductoDAO();
+
+    }
+    
+    
+    public void vender(String nombre, int cantidad){
+        
+        productoDAO.venderProducto(nombre, cantidad);
+        
+    }
+            
     
     
 }

@@ -2,18 +2,23 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package pablomorata.gestorapicola.folder;
+package pablomorata.gestorapicola.Submenus;
+
 
 /**
  *
  * @author blitowsky
  */
-public abstract class Objeto {
+public class Cliente{
+
+    public Cliente(int entrada) {
+        
+        
+        
+    }
     
-    String estado;
-    String utilidad;
-    String prioridad;
-    String area;
-    double precio;
+    
+    
+    
     
 }

@@ -1,4 +1,4 @@
-/home/blitowsky/Documents/Facultad/Programación II/Proyecto Final/GestorApicola/src/main/java/pablomorata/gestorapicola/Abstractas/Entidad.java
+/home/blitowsky/Documents/Facultad/Programación II/Proyecto Final/GestorApicola/src/main/java/pablomorata/gestorapicola/Abstractas/Objeto.java
 /home/blitowsky/Documents/Facultad/Programación II/Proyecto Final/GestorApicola/src/main/java/pablomorata/gestorapicola/Abstractas/Persona.java
 /home/blitowsky/Documents/Facultad/Programación II/Proyecto Final/GestorApicola/src/main/java/pablomorata/gestorapicola/Controllers/ColmenaController.java
 /home/blitowsky/Documents/Facultad/Programación II/Proyecto Final/GestorApicola/src/main/java/pablomorata/gestorapicola/Controllers/ConsumibleController.java
@@ -8,14 +8,15 @@
 /home/blitowsky/Documents/Facultad/Programación II/Proyecto Final/GestorApicola/src/main/java/pablomorata/gestorapicola/DAO/GestorDAOs.java
 /home/blitowsky/Documents/Facultad/Programación II/Proyecto Final/GestorApicola/src/main/java/pablomorata/gestorapicola/DAO/ProductoDAO.java
 /home/blitowsky/Documents/Facultad/Programación II/Proyecto Final/GestorApicola/src/main/java/pablomorata/gestorapicola/Database.java
+/home/blitowsky/Documents/Facultad/Programación II/Proyecto Final/GestorApicola/src/main/java/pablomorata/gestorapicola/Entidades/Apicultor.java
 /home/blitowsky/Documents/Facultad/Programación II/Proyecto Final/GestorApicola/src/main/java/pablomorata/gestorapicola/Entidades/Cliente.java
 /home/blitowsky/Documents/Facultad/Programación II/Proyecto Final/GestorApicola/src/main/java/pablomorata/gestorapicola/Entidades/Colmena.java
 /home/blitowsky/Documents/Facultad/Programación II/Proyecto Final/GestorApicola/src/main/java/pablomorata/gestorapicola/Entidades/Consumible.java
 /home/blitowsky/Documents/Facultad/Programación II/Proyecto Final/GestorApicola/src/main/java/pablomorata/gestorapicola/Entidades/Producto.java
 /home/blitowsky/Documents/Facultad/Programación II/Proyecto Final/GestorApicola/src/main/java/pablomorata/gestorapicola/Entidades/Proveedores.java
+/home/blitowsky/Documents/Facultad/Programación II/Proyecto Final/GestorApicola/src/main/java/pablomorata/gestorapicola/Entidades/Usuario.java
 /home/blitowsky/Documents/Facultad/Programación II/Proyecto Final/GestorApicola/src/main/java/pablomorata/gestorapicola/GestorApicola.java
 /home/blitowsky/Documents/Facultad/Programación II/Proyecto Final/GestorApicola/src/main/java/pablomorata/gestorapicola/Interfaces/IController.java
-/home/blitowsky/Documents/Facultad/Programación II/Proyecto Final/GestorApicola/src/main/java/pablomorata/gestorapicola/Inventario.java
 /home/blitowsky/Documents/Facultad/Programación II/Proyecto Final/GestorApicola/src/main/java/pablomorata/gestorapicola/Menu.java
 /home/blitowsky/Documents/Facultad/Programación II/Proyecto Final/GestorApicola/src/main/java/pablomorata/gestorapicola/TestDatabase.java
-/home/blitowsky/Documents/Facultad/Programación II/Proyecto Final/GestorApicola/src/main/java/pablomorata/gestorapicola/folder/Objeto.java
+/home/blitowsky/Documents/Facultad/Programación II/Proyecto Final/GestorApicola/src/main/java/pablomorata/gestorapicola/Validador.java

@@ -6,26 +6,16 @@ package pablomorata.gestorapicola.Entidades;
 
 import java.util.Date;
 
-
 /**
  *
  * @author blitowsky
  */
-public class Proveedores extends Usuario{
-    
-    String nombre;
-    
-    public Proveedores(){
-        
-        
-        
-    }
-    
-    public Proveedores(String nombre, String ubicacion, int id, Date antiguedad, int prioridad){
-        
-        super(nombre, ubicacion, id, antiguedad, prioridad);
-       
-    }
-    
+public class Apicultor extends Usuario{
 
+    public Apicultor(String nombre, String ubicacion, int id, Date antiguedad, int prioridad) {
+        super(nombre, ubicacion, id, antiguedad, prioridad);
+    }
+    
+    
+    
 }

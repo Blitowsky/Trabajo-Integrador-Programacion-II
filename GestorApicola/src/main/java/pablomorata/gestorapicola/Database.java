@@ -3,12 +3,10 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package pablomorata.gestorapicola;
-
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import java.sql.Statement;
+import java.util.Scanner;
 
 /**
  *
@@ -43,6 +41,7 @@ public class Database {
     public static void disconnect(){
         
         try {
+            
             if(connection != null && !connection.isClosed()){
                 
                 connection.close();
@@ -55,28 +54,11 @@ public class Database {
         }
         
     }
-    
-    public static void reasignarId(Connection conexion, int idAEliminar) throws SQLException{
-        
-        String eliminarSql = "DELETE FROM tu_tabla WHERE id = ?";
-    String reasignarSql = """
-        WITH CTE AS (
-            SELECT ROW_NUMBER() OVER (ORDER BY id) AS nueva_id, id
-            FROM tu_tabla
-        )
-        UPDATE tu_tabla
-        SET id = (SELECT nueva_id FROM CTE WHERE CTE.id = tu_tabla.id)
-    """;
 
-    try (PreparedStatement eliminarStmt = conexion.prepareStatement(eliminarSql);
-         Statement reasignarStmt = conexion.createStatement()) {
-        eliminarStmt.setInt(1, idAEliminar);
-        eliminarStmt.executeUpdate();
-        reasignarStmt.executeUpdate(reasignarSql);
-    }
-        
-        
-        
+    public static void limpiarBuffer(Scanner scanner) {
+        if (scanner.hasNextLine()) {
+            scanner.nextLine(); // Descarta el contenido restante del buffer
+        }
     }
     
 }

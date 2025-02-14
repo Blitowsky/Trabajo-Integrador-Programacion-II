@@ -4,6 +4,8 @@
 
 package pablomorata.gestorapicola;
 
+import pablomorata.gestorapicola.Submenus.Administrador;
+
 /**
  *
  * @author blitowsky
@@ -12,9 +14,9 @@ public class GestorApicola {
 
     public static void main(String[] args) {
         
-        Menu menu = new Menu();
+        MenuDerivador menuDerivador = new MenuDerivador();
         
-        menu.elegirAcciones();
+        menuDerivador.selectorOpciones();
         
     }
 }

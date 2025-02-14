@@ -15,8 +15,9 @@ import pablomorata.gestorapicola.Database;
  *
  * @author blitowsky
  */
+
 public class GestorDAOs {
-    
+
     public static void reasignarId(String nombreEntidad) {
         String selectQuery = "SELECT id FROM " + nombreEntidad + " ORDER BY id ASC";
         String updateQuery = "UPDATE " + nombreEntidad + " SET id = ? WHERE id = ?";
@@ -45,11 +46,33 @@ public class GestorDAOs {
         }
         Database.disconnect();
     }
-    
-    public static void hasNext(int id){
-        
-        
-        
-        
+
+    public static int devolverId(String nombreElemento, String nombreEntidad) {
+
+        String query = "SELECT id from " + nombreEntidad + " WHERE nombre = ?";
+
+        try (Connection conn = Database.connect(); PreparedStatement pstmt = conn.prepareStatement(query)) {
+
+            pstmt.setString(1, nombreElemento);
+
+            try (ResultSet rs = pstmt.executeQuery()) {
+
+                if (rs.next()) { // Verificar si hay resultados
+                    return rs.getInt("id");
+                } else {
+                    System.out.println("No se encontró el elemento: " + nombreElemento);
+                    return -1;
+                }
+
+            }
+
+        } catch (SQLException e) {
+
+            System.out.println("Error al buscar la id " + e.getMessage());
+
+        }
+
+        return -1;
+
     }
 }

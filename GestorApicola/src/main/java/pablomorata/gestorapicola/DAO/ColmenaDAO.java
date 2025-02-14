@@ -17,7 +17,7 @@ import pablomorata.gestorapicola.Database;
  */
 public class ColmenaDAO {
 
-    public static Colmena traerColmenas(int id) {
+    public Colmena traerColmenas(int id) {
 
         String sql = "SELECT * FROM Colmena WHERE id = ?";
 
@@ -28,13 +28,15 @@ public class ColmenaDAO {
             try (ResultSet rs = pstmt.executeQuery()) {
                 if (rs.next()) { // Mover el cursor a la primera fila
                     int colmenaId = rs.getInt("id");
-                    boolean abejas = rs.getBoolean("Abejas");
-                    int miel = rs.getInt("Miel");
-                    int marcos = rs.getInt("Marcos");
-                    String estado = rs.getString("Estado");
-
+                    boolean abejas = rs.getBoolean("abejas");
+                    int miel = rs.getInt("miel");
+                    int marcos = rs.getInt("marcos");
+                    String estado = rs.getString("observaciones");
+                    int peso = rs.getInt("peso");
+                    String utilidad = rs.getString("utilidad");
+                    int prioridad = rs.getInt("prioridad");
                     // Crear y devolver el objeto Colmena
-                    return new Colmena(colmenaId, abejas, miel, marcos, estado);
+                    return new Colmena(colmenaId, abejas, miel, marcos, estado, peso,prioridad ,utilidad);
                 } else {
                     return null;
                 }
@@ -47,15 +49,20 @@ public class ColmenaDAO {
 
     }
 
-    public static void agregarColmena(boolean abejas, int miel, int marcos, String estado) {
+    public void agregarColmena(boolean abejas, int miel, int marcos, String observaciones, int peso, String utilidad, int prioridad) {
 
-        String sql = "INSERT INTO Colmena (Abejas, Marcos, Miel, Estado) VALUES (?, ?, ?, ?)";
+        String sql = "INSERT INTO Colmena (abejas, marcos, miel, observaciones, peso, utilidad, prioridad) VALUES (?, ?, ?, ?, ?, ?, ?)";
 
         try (Connection conn = Database.connect(); PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setBoolean(1, abejas);
             pstmt.setInt(2, miel);
             pstmt.setInt(3, marcos);
-            pstmt.setString(4, estado.toLowerCase());
+            pstmt.setString(4, observaciones.toLowerCase());
+            pstmt.setInt(5, peso);
+            pstmt.setString(6, utilidad);
+            pstmt.setInt(7, prioridad);
+
+                       
             pstmt.executeUpdate();
             System.out.println("Colmena insertada correctamente.");
         } catch (SQLException e) {
@@ -64,7 +71,7 @@ public class ColmenaDAO {
 
     }
 
-    public static void eliminarColmena(int id) {
+    public void eliminarColmena(int id) {
 
         String eliminarSql = "DELETE FROM Colmena WHERE id = ?";
 
@@ -80,7 +87,7 @@ public class ColmenaDAO {
         }   
     }
 
-    public static void modificarColmena(int id, String columna, String nuevoValor) {
+    public void modificarColmena(int id, String columna, String nuevoValor) {
 
         String query = "UPDATE Colmena SET " + columna + " = ? WHERE id = ?";
 
@@ -89,17 +96,17 @@ public class ColmenaDAO {
             switch (columna) {
 
                 case "abejas" -> {
-                    boolean nuevoValorBoolean = "1".equals(nuevoValor);
 
-                    pstmt.setBoolean(1, nuevoValorBoolean);
+                    pstmt.setBoolean(1, "1".equals(nuevoValor));
                 }
 
-                case "miel", "marcos" -> {
-                    int nuevoValorInt = Integer.parseInt(nuevoValor);
-                    pstmt.setInt(1, nuevoValorInt);
+                case "miel", "marcos", "peso", "prioridad" -> {
+                    
+                    pstmt.setInt(1, Integer.parseInt(nuevoValor));
                 }
 
-                case "estado" ->
+                case "observaciones", "utilidad" ->
+                    
                     pstmt.setString(1, nuevoValor);
 
                 default ->
