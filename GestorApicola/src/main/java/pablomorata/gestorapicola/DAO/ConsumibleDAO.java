@@ -8,8 +8,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import pablomorata.gestorapicola.Database;
-import pablomorata.gestorapicola.Entidades.Consumible;
+import pablomorata.gestorapicola.Consumible;
 
 /**
  *

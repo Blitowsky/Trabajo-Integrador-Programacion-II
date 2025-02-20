@@ -6,9 +6,7 @@ package pablomorata.gestorapicola.DAO;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import pablomorata.gestorapicola.Database;
 
 /**
  *
@@ -17,28 +15,24 @@ import pablomorata.gestorapicola.Database;
 public class AdministradorDAO {
     int balance;
     
-    public void modificarBalance(int id, int precio, int cantidad, boolean positivo){
+    public void modificarBalance(String nombreApicultor, int idProducto, int precio, int cantidad, boolean positivo){
         
-        String modificador = "UPDATE Administrador SET balance = ? WHERE id = ? ";
-        String obtenerBalance = "SELECT FROM Administrador WHERE id = ?";
+        String modificador = "UPDATE Administrador SET balance = ? WHERE nombre = ? ";
+        
+        int balancePrevio = GestorDAOs.obtenerInt("balance", "Administrador", nombreApicultor);
         
         try(Connection conn = Database.connect(); 
-                PreparedStatement pstmt1 = conn.prepareStatement(obtenerBalance);
-                PreparedStatement pstmt2 = conn.prepareStatement(modificador))
+                PreparedStatement pstmt = conn.prepareStatement(modificador))
         {
             
-            pstmt1.setInt(1, id);
-            pstmt1.executeUpdate();
-
-            try(ResultSet rs = pstmt1.executeQuery()){
-                
-                if(rs.next()) balance = rs.getInt("balance"); 
-                
-            }    
+            System.out.println(precio * cantidad + " Este es el precio agregado y este el previo " + balancePrevio);
+            if (positivo)  balance = balancePrevio + precio * cantidad;
+            else balance = balancePrevio - precio * cantidad;
+           
             
-            pstmt2.setInt(1, balance);
-            pstmt2.setInt(2, id);     
-            pstmt2.executeUpdate();
+            pstmt.setInt(1, balance);
+            pstmt.setString(2, nombreApicultor);     
+            pstmt.executeUpdate();
  
             
         }catch(SQLException e){

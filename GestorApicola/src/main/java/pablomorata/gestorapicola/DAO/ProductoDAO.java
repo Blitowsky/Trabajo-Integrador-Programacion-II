@@ -8,8 +8,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import pablomorata.gestorapicola.Database;
-import pablomorata.gestorapicola.Entidades.Producto;
+import pablomorata.gestorapicola.Producto;
 
 
 /**
@@ -43,15 +42,18 @@ public class ProductoDAO {
     
     public void agregarAInventario(String nombre, int cantidad){
         
-        String query = "UPDATE Producto SET cantidad =  cantidad + ? WHERE nombre = '?'";
-        
+        String query = "UPDATE Producto SET cantidad =  cantidad + ? WHERE nombre = ?";
+        int cantidadPrevia = GestorDAOs.obtenerInt("cantidad", "Producto", nombre);
+
         try(Connection conn = Database.connect(); 
             PreparedStatement pstmt = conn.prepareStatement(query)) {
             
+            
+            pstmt.setInt(1, cantidadPrevia + cantidad);
             pstmt.setString(2, nombre.toLowerCase());
-            pstmt.setInt(1, cantidad);
             pstmt.executeUpdate();
             System.out.println("Producto/s agregado correctamente");
+            
             
         } catch (SQLException e) {
             
@@ -60,23 +62,29 @@ public class ProductoDAO {
         }
         
     }
+    
      public void eliminarDeInventario(String nombre, int cantidad){
         
-        String query = "UPDATE Producto SET cantidad =  cantidad - ? WHERE nombre = '?'";
-        
+        String query = "UPDATE Producto SET cantidad = ? WHERE nombre = ?";
+        int cantidadPrevia = GestorDAOs.obtenerInt("cantidad", "Producto", nombre);
         try(Connection conn = Database.connect(); 
             PreparedStatement pstmt = conn.prepareStatement(query)) {
-            
+                        
+            pstmt.setInt(1, cantidadPrevia - cantidad);
             pstmt.setString(2, nombre.toLowerCase());
-            pstmt.setInt(1, cantidad);
             pstmt.executeUpdate();
-            System.out.println("Producto/s agregado correctamente");
+            System.out.println("Producto/s eliminado correctamente");
             
         } catch (SQLException e) {
             
-            System.out.println("Error al agregar el producto/s: " + e.getMessage());
+            System.err.println("Error al eliminar el producto/s: " + e.getMessage());
             
+        } catch (Exception e) { // Captura cualquier otra excepción
+            System.err.println("Error general: " + e.getMessage());
         }
+        
+                GestorDAOs.reasignarId("Producto");
+
         
     }
     
@@ -168,6 +176,7 @@ public class ProductoDAO {
     public void venderProducto(String nombre, int cantidad){
         
         eliminarDeInventario(nombre,cantidad);
+        
         
         
     }

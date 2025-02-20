@@ -9,14 +9,262 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import pablomorata.gestorapicola.Database;
 
 /**
  *
  * @author blitowsky
- */
+ * 
+ **/
 
 public class GestorDAOs {
+
+    public static int obtenerInt(String atributoBuscado, String clase, String condicionWhere) {
+        
+        int atributo;
+        atributo = -1;
+        
+        String searchQuery = "SELECT " + atributoBuscado + " FROM " + clase + " WHERE nombre = ?";
+
+        try (Connection conn = Database.connect(); PreparedStatement pstmt = conn.prepareStatement(searchQuery);) {
+
+            pstmt.setString(1, condicionWhere);
+            
+            try (ResultSet rs = pstmt.executeQuery()) {
+
+                if (rs.next()) {
+
+                    atributo = rs.getInt(atributoBuscado);
+                
+                }
+            }
+
+        } catch (SQLException e) {
+
+            System.err.println("Error al buscar atributo" + e.getMessage());
+
+        }
+        
+    
+        return atributo;
+    }
+    
+
+    public static int obtenerInt(String atributoBuscado, String clase, int idElemento) {
+
+        int atributo;
+        atributo = -1;
+
+        String searchQuery = "SELECT " + atributoBuscado + " FROM " + clase + " WHERE id = ?";
+
+        try (Connection conn = Database.connect(); PreparedStatement pstmt = conn.prepareStatement(searchQuery);) {
+
+            pstmt.setInt(1, idElemento);
+
+            try (ResultSet rs = pstmt.executeQuery()) {
+
+                if (rs.next()) {
+
+                    atributo = rs.getInt(atributoBuscado);
+
+                }
+
+            }
+
+        } catch (SQLException e) {
+
+            System.err.println("Error al buscar atributo" + e.getMessage());
+
+        }
+
+        return atributo;
+
+    }
+
+    public static double obtenerDouble(String atributoBuscado, String clase, String nombreElemento) {
+
+        double atributo;
+        atributo = -1;
+
+        String searchQuery = "SELECT " + atributoBuscado + " FROM " + clase + " WHERE nombre = ?";
+
+        try (Connection conn = Database.connect(); PreparedStatement pstmt = conn.prepareStatement(searchQuery);) {
+
+            pstmt.setString(1, nombreElemento);
+
+            try (ResultSet rs = pstmt.executeQuery()) {
+
+                if (rs.next()) {
+
+                    atributo = rs.getDouble(nombreElemento);
+
+                }
+
+            }
+
+        } catch (SQLException e) {
+
+            System.err.println("Error al buscar atributo" + e.getMessage());
+
+        }
+
+        return atributo;
+
+    }
+
+    public static double obtenerDouble(String atributoBuscado, String clase, int idElemento) {
+
+        double atributo;
+        atributo = -1;
+
+        String searchQuery = "SELECT " + atributoBuscado + " FROM " + clase + " WHERE id = ?";
+
+        try (Connection conn = Database.connect(); PreparedStatement pstmt = conn.prepareStatement(searchQuery);) {
+
+            pstmt.setInt(1, idElemento);
+
+            try (ResultSet rs = pstmt.executeQuery()) {
+
+                if (rs.next()) {
+
+                    atributo = rs.getDouble(atributoBuscado);
+
+                }
+
+            }
+
+        } catch (SQLException e) {
+
+            System.err.println("Error al buscar atributo" + e.getMessage());
+
+        }
+
+        return atributo;
+
+    }
+
+    public static String obtenerString(String atributoBuscado, String clase, String nombreElemento) {
+
+        String atributo;
+        atributo = null;
+
+        String searchQuery = "SELECT " + atributoBuscado + " FROM " + clase + " WHERE nombre = ?";
+
+        try (Connection conn = Database.connect(); PreparedStatement pstmt = conn.prepareStatement(searchQuery);) {
+
+            pstmt.setString(1, nombreElemento);
+
+            try (ResultSet rs = pstmt.executeQuery()) {
+
+                if (rs.next()) {
+
+                    atributo = rs.getString(nombreElemento);
+
+                }
+
+            }
+
+        } catch (SQLException e) {
+
+            System.err.println("Error al buscar atributo" + e.getMessage());
+
+        }
+
+        return atributo;
+
+    }
+
+    public static String obtenerString(String atributoBuscado, String clase, int idElemento) {
+
+        String atributo;
+        atributo = null;
+
+        String searchQuery = "SELECT " + atributoBuscado + " FROM " + clase + " WHERE id = ?";
+
+        try (Connection conn = Database.connect(); PreparedStatement pstmt = conn.prepareStatement(searchQuery);) {
+
+            pstmt.setInt(1, idElemento);
+
+            try (ResultSet rs = pstmt.executeQuery()) {
+
+                if (rs.next()) {
+
+                    atributo = rs.getString(atributoBuscado);
+
+                }
+
+            }
+
+        } catch (SQLException e) {
+
+            System.err.println("Error al buscar atributo" + e.getMessage());
+
+        }
+
+        return atributo;
+
+    }
+
+    public static boolean obtenerBoolean(String atributoBuscado, String clase, String nombreElemento) {
+
+        boolean atributo;
+        atributo = false;
+
+        String searchQuery = "SELECT " + atributoBuscado + " FROM " + clase + " WHERE nombre = ?";
+
+        try (Connection conn = Database.connect(); PreparedStatement pstmt = conn.prepareStatement(searchQuery);) {
+
+            pstmt.setString(1, nombreElemento);
+
+            try (ResultSet rs = pstmt.executeQuery()) {
+
+                if (rs.next()) {
+
+                    atributo = rs.getBoolean(nombreElemento);
+
+                }
+
+            }
+
+        } catch (SQLException e) {
+
+            System.err.println("Error al buscar atributo" + e.getMessage());
+
+        }
+
+        return atributo;
+
+    }
+
+    public static boolean obtenerBoolean(String atributoBuscado, String clase, int idElemento) {
+
+        boolean atributo;
+        atributo = false;
+
+        String searchQuery = "SELECT " + atributoBuscado + " FROM " + clase + " WHERE id = ?";
+
+        try (Connection conn = Database.connect(); PreparedStatement pstmt = conn.prepareStatement(searchQuery);) {
+
+            pstmt.setInt(1, idElemento);
+
+            try (ResultSet rs = pstmt.executeQuery()) {
+
+                if (rs.next()) {
+
+                    atributo = rs.getBoolean(atributoBuscado);
+
+                }
+
+            }
+
+        } catch (SQLException e) {
+
+            System.err.println("Error al buscar atributo" + e.getMessage());
+
+        }
+
+        return atributo;
+
+    }
 
     public static void reasignarId(String nombreEntidad) {
         String selectQuery = "SELECT id FROM " + nombreEntidad + " ORDER BY id ASC";
@@ -75,4 +323,33 @@ public class GestorDAOs {
         return -1;
 
     }
+    
+   public static void modificarNombre(String nuevoNombre, int id, String clase){
+       
+       String query = "UPDATE " + clase + " SET nombre = ? WHERE id = ?";
+       
+       try(Connection conn = Database.connect();
+           PreparedStatement pstmt = conn.prepareStatement(query)){
+           
+           pstmt.setString(1, nuevoNombre);
+           pstmt.setInt(2, id);
+           
+           pstmt.executeUpdate();
+
+           
+       } catch (SQLException e){
+           
+           System.err.println("Error al actualizar el nombre " + e.getMessage());
+           
+       }
+       
+   }
+        
+        
+    
+            
+            
+            
+            
+            
 }

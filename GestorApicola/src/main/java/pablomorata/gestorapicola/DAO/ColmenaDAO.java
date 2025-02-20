@@ -8,8 +8,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import pablomorata.gestorapicola.Entidades.Colmena;
-import pablomorata.gestorapicola.Database;
+import pablomorata.gestorapicola.Colmena;
 
 /**
  *
@@ -85,6 +84,8 @@ public class ColmenaDAO {
             System.err.println("Error al eliminar colmena: " + e.getMessage());
 
         }   
+        
+        GestorDAOs.reasignarId("Colmena");
     }
 
     public void modificarColmena(int id, String columna, String nuevoValor) {
