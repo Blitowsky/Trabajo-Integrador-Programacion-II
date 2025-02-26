@@ -13,19 +13,15 @@ package pablomorata.gestorapicola.Abstractas;
 public abstract class Persona {
     
     String nombre;
-    String sexo;
     
-    public Persona(){
-        
-        
-        
+    public Persona(){   
     }
     
     
     public Persona(String nombre){
         
         this.nombre = nombre;
-        
+     
     }
     
     public String getNombre() {

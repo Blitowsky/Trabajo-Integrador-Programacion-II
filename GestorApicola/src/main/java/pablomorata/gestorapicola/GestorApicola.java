@@ -12,9 +12,9 @@ public class GestorApicola {
 
     public static void main(String[] args) {
         
-        Menu menuDerivador = new Menu();
+        Menu menu = new Menu();
         
-        menuDerivador.selectorOpciones();
+        menu.selectorOpciones();
         
     }
 }

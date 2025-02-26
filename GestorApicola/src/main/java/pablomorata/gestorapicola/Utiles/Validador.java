@@ -22,6 +22,7 @@ public class Validador {
 
     public static int entreParametros(int desde, int hasta) {
         int parametro;
+        
         try {
 
             parametro = scanner.nextInt();
@@ -32,6 +33,7 @@ public class Validador {
                 parametro = scanner.nextInt();
 
             }
+            
             return parametro;
 
         } catch (InputMismatchException e) {
@@ -47,7 +49,9 @@ public class Validador {
         int parametro;
 
         try {
+            
             parametro = scanner.nextInt();
+            
             while (parametro < mayorA) {
 
                 System.out.println("#ERROR 03# \nIngrese un número mayor a " + mayorA);
@@ -62,7 +66,6 @@ public class Validador {
             return parametro;
 
         }
-
     }
 
     public static double doubleMayorA(int mayorA) {
@@ -71,18 +74,19 @@ public class Validador {
         
         try{
             
-         parametro = scanner.nextInt();
-
-        while (parametro < mayorA) {
-
-            System.out.println("#ERROR 04# \nIngrese un número mayor a " + mayorA);
-            parametro = scanner.nextDouble();
-
-        }
-        return parametro;   
+            parametro = scanner.nextInt();
             
+            while (parametro < mayorA) {
+
+                System.out.println("#ERROR 04# \nIngrese un número mayor a " + mayorA);
+                parametro = scanner.nextDouble();
+
+            }
+            
+            return parametro;   
+
         } catch (InputMismatchException e){
-            
+
             parametro = errorPorCaracter(mayorA, false);
             return parametro;   
         }

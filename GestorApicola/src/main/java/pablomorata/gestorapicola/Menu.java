@@ -12,7 +12,8 @@ import pablomorata.gestorapicola.Utiles.Validador;
 /**
  *
  * @author blitowsky
- */
+ * 
+ **/
 public class Menu {
 
     int entrada;
@@ -20,6 +21,7 @@ public class Menu {
     Usuario cliente;
     Usuario proveedores;
     boolean salir = false;
+    String nombre;
     Scanner scanner = new Scanner(System.in).useDelimiter("\n");
     public Menu() {
 
@@ -46,21 +48,21 @@ public class Menu {
                 case 1 -> {
 
                     if (validarUsuario("Administrador")) {
-                        administrador.selectorOpciones();
+                        administrador.selectorOpciones(nombre);
                     }
                 }
 
                 case 2 -> {
 
                     if (validarUsuario("Cliente")) {
-                        cliente.selectorOpciones();
+                        cliente.selectorOpciones(nombre);
                     }
                 }
 
                 case 3 -> {
 
                     if (validarUsuario("Proveedor")) {
-                        proveedores.selectorOpciones();
+                        proveedores.selectorOpciones(nombre);
                     }
                 }
                 case 4 -> nuevoUsuario();
@@ -73,8 +75,9 @@ public class Menu {
         int id;
         int contador = 0;
         boolean aprobado = false;
+        
         System.out.println("Ingrese el nombre de su usuario:");
-        String nombre = scanner.next();
+        nombre = scanner.next();
         
         if (GestorDAOs.obtenerInt("id", tipoUsuario, nombre) != -1) {
             id = GestorDAOs.obtenerInt("id", tipoUsuario, nombre);
@@ -109,6 +112,38 @@ public class Menu {
             System.out.println("El nombre ingresado no corresponde a ningún usuario registrado");
 
         }
+        return false;
+    }
+    
+    public boolean validarUsuario(String tipoUsuario, String nombreUsuario) {
+
+        int contador = 0;
+        boolean aprobado = false;
+
+        do {
+                
+            System.out.println("Ingrese la contraseña");
+            String contraseña = scanner.next();
+
+            if (contraseña.equals(GestorDAOs.obtenerString("contraseña", tipoUsuario, nombreUsuario))) {
+
+                return true;
+
+            } else {
+
+                System.out.println("La contraseña ingresada es incorrecta, intente nuevamente...");
+
+            }
+            contador++;
+
+        } while (contador < 6 && !aprobado);
+
+            if (contador < 6) {
+
+                System.out.println("Ha superado la cantidad máxima de intentos");
+
+            }      
+        
         return false;
     }
 

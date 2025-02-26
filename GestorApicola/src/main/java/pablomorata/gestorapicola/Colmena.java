@@ -5,7 +5,6 @@
 package pablomorata.gestorapicola;
 
 import java.util.ArrayList;
-import java.util.InputMismatchException;
 import java.util.Scanner;
 import pablomorata.gestorapicola.DAO.ColmenaDAO;
 import pablomorata.gestorapicola.DAO.GestorDAOs;
@@ -22,7 +21,7 @@ import pablomorata.gestorapicola.Utiles.Validador;
 public class Colmena extends Objeto implements CRUDInterface {
 
     static Scanner scanner = new Scanner(System.in).useDelimiter("\n");
-    Colmena colmena;
+    
     ArrayList<Colmena> colmenas = new ArrayList<>();
     ColmenaDAO colmenaDAO;
     int opcion;
@@ -51,42 +50,36 @@ public class Colmena extends Objeto implements CRUDInterface {
 
     @Override
     public void selectorOpciones() {
-
+        
         boolean salirMenu = false;
-
+        
         while (!salirMenu) {
             System.out.println("--- MENÚ ----");
-            System.out.println(" 0: test \n  1: Agregar \n  2: Eliminar \n  3: Modificar \n 4: Mostrar \n  5: salir");
+            System.out.println(" 0: salir \n  1: Agregar \n  2: Eliminar \n  3: Modificar \n 4: Mostrar \n  5: test");
             System.out.println("Ingrese la opción del menú a elegir");
 
             opcion = Validador.entreParametros(0, 5);
 
             switch (opcion) {
 
-                case 1 ->
-                    agregarAInventario();
+                case 1 -> agregarAInventario();
 
-                case 2 ->
-                    eliminarDeInventario();
+                case 2 -> eliminarDeInventario();
 
-                case 3 ->
-                    modificar();
+                case 3 -> modificar();
 
-                case 4 ->
-                    mostrar();
+                case 4 -> mostrar();
 
-                case 5 -> {
+                case 5 -> System.out.println(GestorDAOs.obtenerInt("marcos", "Colmena", 1)); //case pruebas
+                
+
+                case 0 ->{
                     salirMenu = true;
-                    Database.limpiarBuffer(scanner);
+                    Database.limpiarBuffer(scanner);                    
+            
                 }
-
-                case 0 ->
-                    System.out.println(GestorDAOs.obtenerInt("marcos", "Colmena", 1)); //case pruebas
-
             }
-
         }
-
     }
 
     @Override
@@ -137,6 +130,9 @@ public class Colmena extends Objeto implements CRUDInterface {
 
         System.out.println("Ingrese el id de la colmena a modificar");
         id = Validador.intMayorA(1);
+        
+        
+       
         boolean salirModificar = false;
         int entrada;
         String columna;
@@ -152,6 +148,7 @@ public class Colmena extends Objeto implements CRUDInterface {
             switch (entrada) {
 
                 case 1 -> {
+                    
                     columna = "abejas";
                     System.out.println("Ingrese si la colmena posee abejas");
                     intAuxiliar = Validador.entreParametros(1, 2);
@@ -270,7 +267,6 @@ public class Colmena extends Objeto implements CRUDInterface {
 
     @Override
     public void eliminar() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
 }

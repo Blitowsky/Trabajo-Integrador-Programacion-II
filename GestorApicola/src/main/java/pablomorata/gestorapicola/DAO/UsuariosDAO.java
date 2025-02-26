@@ -37,21 +37,21 @@ public class UsuariosDAO {
         
     }
     
-    public static void modificarDatosRegistro(String clase, String atributo, String nuevoValor, int id){
+    public static void modificarDatosRegistro(String clase, String atributo, String nuevoValor, String valorViejo){
         
         
-        String query = "UPDATE " + clase + " SET " + atributo + " = ? WHERE id = ? ";
+        String query = "UPDATE " + clase + " SET " + atributo + " = ? WHERE nombre = ? ";
         
         try(Connection conn = Database.connect(); PreparedStatement pstmt = conn.prepareStatement(query)){
             
             pstmt.setString(1, nuevoValor);
-            pstmt.setInt(2, id);
+            pstmt.setString(2, valorViejo);
             pstmt.executeUpdate();
             
             
         } catch(SQLException e){
             
-            System.out.println("Fallo al modificar producto " + e.getMessage());
+            System.out.println("Fallo al modificar " + e.getMessage());
             
         }
         

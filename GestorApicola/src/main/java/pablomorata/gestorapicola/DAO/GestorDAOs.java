@@ -13,28 +13,28 @@ import java.sql.Statement;
 /**
  *
  * @author blitowsky
- * 
- **/
-
+ *
+ *
+ */
 public class GestorDAOs {
 
     public static int obtenerInt(String atributoBuscado, String clase, String condicionWhere) {
-        
+
         int atributo;
         atributo = -1;
-        
+
         String searchQuery = "SELECT " + atributoBuscado + " FROM " + clase + " WHERE nombre = ?";
 
         try (Connection conn = Database.connect(); PreparedStatement pstmt = conn.prepareStatement(searchQuery);) {
 
             pstmt.setString(1, condicionWhere);
-            
+
             try (ResultSet rs = pstmt.executeQuery()) {
 
                 if (rs.next()) {
 
                     atributo = rs.getInt(atributoBuscado);
-                
+
                 }
             }
 
@@ -43,11 +43,9 @@ public class GestorDAOs {
             System.err.println("Error al buscar atributo" + e.getMessage());
 
         }
-        
-    
+
         return atributo;
     }
-    
 
     public static int obtenerInt(String atributoBuscado, String clase, int idElemento) {
 
@@ -159,6 +157,8 @@ public class GestorDAOs {
 
                     atributo = rs.getString(nombreElemento);
 
+                } else {
+                    System.err.println("No se encontró atributo llamado de esa forma");
                 }
 
             }
@@ -201,6 +201,36 @@ public class GestorDAOs {
         }
 
         return atributo;
+
+    }
+
+    public static boolean obtenerString(String atributoBuscado, String clase) {
+
+
+        String searchQuery = "SELECT COUNT(*) FROM " + clase + " WHERE nombre = ?;";
+
+        try (Connection conn = Database.connect(); PreparedStatement pstmt = conn.prepareStatement(searchQuery);) {
+
+            pstmt.setString(1, atributoBuscado);
+
+            try (ResultSet rs = pstmt.executeQuery()) {
+
+                if (rs.next()) {
+                    
+                    System.out.println(rs.getInt(1) > 0);
+
+                    return rs.getInt(1) > 0;
+                }
+
+            }
+
+        } catch (SQLException e) {
+
+            System.err.println("Error al buscar atributo" + e.getMessage());
+
+        }
+
+        return false;
 
     }
 
@@ -272,13 +302,13 @@ public class GestorDAOs {
 
         try (Connection conn = Database.connect(); Statement stmt = conn.createStatement(); ResultSet rs = stmt.executeQuery(selectQuery)) {
 
-            int nuevoId = 1; // Inicia desde 1
+            int nuevoId = 1;
             while (rs.next()) {
                 int idActual = rs.getInt("id");
 
                 try (PreparedStatement pstmt = conn.prepareStatement(updateQuery)) {
-                    pstmt.setInt(1, nuevoId); // Nuevo ID
-                    pstmt.setInt(2, idActual); // ID actual
+                    pstmt.setInt(1, nuevoId);
+                    pstmt.setInt(2, idActual);
                     pstmt.executeUpdate();
                 }
 
@@ -323,33 +353,24 @@ public class GestorDAOs {
         return -1;
 
     }
-    
-   public static void modificarNombre(String nuevoNombre, int id, String clase){
-       
-       String query = "UPDATE " + clase + " SET nombre = ? WHERE id = ?";
-       
-       try(Connection conn = Database.connect();
-           PreparedStatement pstmt = conn.prepareStatement(query)){
-           
-           pstmt.setString(1, nuevoNombre);
-           pstmt.setInt(2, id);
-           
-           pstmt.executeUpdate();
 
-           
-       } catch (SQLException e){
-           
-           System.err.println("Error al actualizar el nombre " + e.getMessage());
-           
-       }
-       
-   }
-        
-        
-    
-            
-            
-            
-            
-            
+    public static void modificarNombre(String nuevoNombre, int id, String clase) {
+
+        String query = "UPDATE " + clase + " SET nombre = ? WHERE id = ?";
+
+        try (Connection conn = Database.connect(); PreparedStatement pstmt = conn.prepareStatement(query)) {
+
+            pstmt.setString(1, nuevoNombre);
+            pstmt.setInt(2, id);
+
+            pstmt.executeUpdate();
+
+        } catch (SQLException e) {
+
+            System.err.println("Error al actualizar el nombre " + e.getMessage());
+
+        }
+
+    }
+
 }

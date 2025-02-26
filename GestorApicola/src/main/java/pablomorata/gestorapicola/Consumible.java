@@ -168,10 +168,10 @@ System.out.println("MENÚ:");
 
             consumibleDAO.modificarConsumible(id, columna, String.valueOf(nuevoValor));
             
-                 ///ERROR GRAVE, BUCLE SIN SALIDA
-                ///hay que validar que exista el atributo en la tabla, si no lo encuentra queda
-                ///atrapado en el bucle de preguntar id y el nuevo valor
-                ///POR OTRO LADO NO HAY CONDICION DE SALIDA DEL WHILE
+            ///ERROR GRAVE, BUCLE SIN SALIDA
+            ///hay que validar que exista el atributo en la tabla, si no lo encuentra queda
+            ///atrapado en el bucle de preguntar id y el nuevo valor
+            ///POR OTRO LADO NO HAY CONDICION DE SALIDA DEL WHILE
                 
 
         }

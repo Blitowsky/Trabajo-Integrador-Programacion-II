@@ -4,15 +4,9 @@
  */
 package pablomorata.gestorapicola;
 
-import java.util.Date;
-import java.util.InputMismatchException;
-import java.util.Scanner;
-import pablomorata.gestorapicola.DAO.AdministradorDAO;
-import pablomorata.gestorapicola.DAO.Database;
-import pablomorata.gestorapicola.Colmena;
-import pablomorata.gestorapicola.Consumible;
-import pablomorata.gestorapicola.Producto;
-import pablomorata.gestorapicola.Usuario;
+
+import static pablomorata.gestorapicola.Cliente.scanner;
+import pablomorata.gestorapicola.DAO.UsuariosDAO;
 import pablomorata.gestorapicola.Utiles.Validador;
 
 /**
@@ -21,24 +15,26 @@ import pablomorata.gestorapicola.Utiles.Validador;
  */
 public class Administrador extends Usuario {
 
-    static Scanner scanner = new Scanner(System.in).useDelimiter("\n");
 
     int entrada;
     Colmena colmena = new Colmena();
     Producto producto;
     Consumible consumible;
+    Menu menu;
     boolean salir = false;
 
     public Administrador() {
+        
         colmena = new Colmena();
         producto = new Producto();
         consumible = new Consumible();
 
+
     }
 
-    public Administrador(String nombre, String ubicacion, int id, Date antiguedad, int prioridad) {
+    public Administrador(String nombre, String ubicacion, int id, int prioridad) {
 
-        super(nombre, id, antiguedad, prioridad);
+        super(nombre, id, prioridad);
         colmena = new Colmena();
         producto = new Producto();
         consumible = new Consumible();
@@ -46,7 +42,7 @@ public class Administrador extends Usuario {
     }
 
     @Override
-    public void selectorOpciones() {
+    public void selectorOpciones(String nombre) {
 
         while (!salir) {
 
@@ -64,13 +60,39 @@ public class Administrador extends Usuario {
                     producto.selectorOpciones();
                 case 3 ->
                     consumible.selectorOpciones();
-                case 4 -> {
-                }
+                case 4 -> modificarNombre(nombre);
+                case 5 -> modificarContraseña(nombre);
 
             }
 
         }
 
+    }
+    public void modificarNombre(String nombreActual){
+        
+        System.out.println("Ingrese el nuevo nombre:");
+        String nuevoNombre;
+        nuevoNombre = scanner.next();
+        
+        UsuariosDAO.modificarDatosRegistro("Administrador", "nombre", nuevoNombre, nombreActual);
+        
+        
+    }
+    public void modificarContraseña(String nombreActual){
+        
+        System.out.println("Ingrese su contraseña actual");
+        String contraseñaActual = scanner.next();
+        
+        while (menu.validarUsuario("Cliente", contraseñaActual)) {
+            
+        }
+        
+        System.out.println("Ingrese el nuevo nombre:");
+        String nuevoNombre;
+        nuevoNombre = scanner.next();
+        
+        UsuariosDAO.modificarDatosRegistro("Administrador", "contraseña", nuevoNombre, nombreActual);
+        
     }
 
 }

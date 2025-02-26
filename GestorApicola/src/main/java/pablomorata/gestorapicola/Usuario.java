@@ -16,7 +16,6 @@ import pablomorata.gestorapicola.Abstractas.Persona;
 public class Usuario extends Persona{
       
     int id;
-    Date antiguedad;
     int prioridad;
     
     
@@ -25,16 +24,15 @@ public class Usuario extends Persona{
     }
     
     
-    public Usuario(String nombre, int id, Date antiguedad, int prioridad){
+    public Usuario(String nombre, int id, int prioridad){
         
         super(nombre);
         this.id = id;
-        this.antiguedad = antiguedad;
         this.prioridad = prioridad;
         
     }
     
-    public void selectorOpciones() {
+    public void selectorOpciones(String nombre) {
         
     }
     
@@ -48,13 +46,6 @@ public class Usuario extends Persona{
         this.id = id;
     }
 
-    public Date getAntiguedad() {
-        return antiguedad;
-    }
-
-    public void setAntiguedad(Date antiguedad) {
-        this.antiguedad = antiguedad;
-    }
 
     public int getPrioridad() {
         return prioridad;
